@@ -8,15 +8,180 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+ <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* Background Animation */
+.form-section{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background: linear-gradient(270deg,#f8e1e7,#fde8e4,#f7d9ff,#e7f0ff);
+background-size:800% 800%;
+animation: gradientMove 15s ease infinite;
+padding:40px;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* Glass Card */
+.form-card{
+width:100%;
+max-width:500px;
+padding:40px;
+border-radius:20px;
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(20px);
+box-shadow:0 15px 40px rgba(0,0,0,0.1);
+border:1px solid rgba(255,255,255,0.4);
+animation: floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard{
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+}
+
+.form-title{
+text-align:center;
+font-size:28px;
+color: #000;
+font-weight:600;
+margin-bottom:10px;
+}
+
+.form-sub{
+text-align:center;
+font-size:14px;
+opacity:0.7;
+color: #000;
+margin-bottom:30px;
+}
+
+/* Input Group */
+.input-group{
+position:relative;
+margin-bottom:25px;
+}
+
+.input-group input,
+.input-group textarea{
+width:100%;
+padding:14px 12px;
+border-radius:10px;
+border:none;
+outline:none;
+font-size:14px;
+background:rgba(255,255,255,0.6);
+transition:0.3s;
+}
+
+.input-group textarea{
+resize:none;
+height:120px;
+}
+
+/* Floating Label */
+.input-group label{
+position:absolute;
+left:12px;
+top:14px;
+font-size:13px;
+color:#666;
+transition:0.3s;
+pointer-events:none;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+background:white;
+box-shadow:0 0 10px rgba(255,120,150,0.3);
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label{
+top:-8px;
+left:10px;
+font-size:11px;
+background:white;
+padding:2px 6px;
+border-radius:5px;
+}
+
+/* Button */
+.submit-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+font-size:15px;
+font-weight:500;
+cursor:pointer;
+color:white;
+background:linear-gradient(45deg,#ff7aa2,#ffb6a3);
+background-size:200% 200%;
+transition:0.4s;
+box-shadow:0 8px 20px rgba(255,120,150,0.4);
+}
+
+.submit-btn:hover{
+background-position:right center;
+transform:translateY(-3px);
+box-shadow:0 12px 30px rgba(255,120,150,0.5);
+}
+
+/* Glow Pulse */
+.submit-btn::after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:12px;
+opacity:0;
+box-shadow:0 0 30px rgba(255,120,150,0.8);
+transition:0.3s;
+}
+
+.submit-btn:hover::after{
+opacity:1;
+} 
+.input-group input,
+.input-group textarea{
+width:100%;
+padding:14px 12px;
+border-radius:10px;
+border:none;
+outline:none;
+font-size:14px;
+background:rgba(255,255,255,0.6);
+transition:0.3s;
+color:#000; /* makes typed text black */
+}
+
+/* also fix placeholder color */
+.input-group input::placeholder,
+.input-group textarea::placeholder{
+color:#555;
+}
+
+/* label color */
+.input-group label{
+color:#444;
+}
     :root {
       --bg: #fdf6f3;
       --bg-warm: #faeee8;
       --fg: #ffffff;
       --fg-light: #ffffff;
       --accent: #ffffff;
-      --accent-deep: #ffffff;
+      --accent-deep: #ffffff
       --flower-red: #d4786a;
       --flower-coral: #e8a090;
       --flower-purple: #9d7a9a;
@@ -413,6 +578,31 @@
       0%, 100% { transform: rotate(-3deg); }
       50% { transform: rotate(3deg); }
     }
+    .calendar-section{
+  padding:80px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,#fdf6f3,#faeee8);
+}
+
+.calendar-title{
+  font-size:36px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+.calendar-subtitle{
+  color:#666;
+  margin-bottom:40px;
+  font-size: 20px;
+}
+
+.calendar-wrapper{
+  max-width:900px;
+  margin:auto;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+}
 
     /* Text animations */
     .title-reveal {
@@ -465,6 +655,98 @@
   line-height: 1.2;
   animation: colorPulse 3s ease-in-out infinite alternate;
 }
+.guestbook{
+  padding:100px 20px;
+  background:linear-gradient(135deg,#fdf6f3,#faeee8);
+  display:flex;
+  justify-content:center;
+}
+
+.guestbook-container{
+  max-width:700px;
+  width:100%;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(12px);
+  padding:50px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+.guestbook-title{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+.guestbook-subtitle{
+  color:#666;
+  margin-bottom:40px;
+}
+
+.guestbook-form{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.input-group{
+  position:relative;
+}
+
+.input-group input,
+.input-group textarea{
+  width:100%;
+  padding:16px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  background:white;
+  font-size:15px;
+  outline:none;
+  transition:0.3s;
+}
+
+.input-group label{
+  position:absolute;
+  left:14px;
+  top:14px;
+  color:#999;
+  font-size:14px;
+  pointer-events:none;
+  transition:0.3s;
+  background:white;
+  padding:0 6px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+  border-color:#d4786a;
+  box-shadow:0 0 10px rgba(212,120,106,0.2);
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label,
+.input-group textarea:focus + label,
+.input-group textarea:valid + label{
+  top:-10px;
+  font-size:12px;
+  color:#d4786a;
+}
+
+.blessing-btn{
+  padding:14px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#d4786a,#e8a090);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.blessing-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -481,6 +763,66 @@
         display: flex;
       }
     }
+    .calendar-section{
+  padding:80px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,#fdf6f3,#faeee8);
+}
+
+.calendar-container{
+  max-width:800px;
+  margin:auto;
+}
+
+.calendar-section h2{
+  font-size:34px;
+  margin-bottom:10px;
+  font-weight:600;
+}
+
+.calendar-section p{
+  color:#666;
+  margin-bottom:40px;
+}
+
+.calendar-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+}
+
+.calendar-btn{
+  padding:14px 28px;
+  border-radius:40px;
+  text-decoration:none;
+  font-size:16px;
+  font-weight:500;
+  transition:all .3s ease;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.calendar-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.12);
+}
+
+/* Button Colors */
+
+.google{
+  background:#4285F4;
+  color:white;
+}
+
+.apple{
+  background:#000;
+  color:white;
+}
+
+.outlook{
+  background:#0078D4;
+  color:white;
+}
 
     @media (min-width: 769px) {
       .mobile-menu-btn {
@@ -744,7 +1086,23 @@
       opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
+.calendar-btn{
+  display:inline-block;
+  padding:14px 28px;
+  background:#4285F4;
+  color:#fff;
+  border-radius:40px;
+  text-decoration:none;
+  font-weight:500;
+  transition:0.3s;
+  margin: 10px
+  ;
+}
 
+.calendar-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
     /* Main container */
     .main-container {
       position: relative;
@@ -1209,25 +1567,14 @@
   <!-- Background texture -->
   <!-- Background Video -->
 <video autoplay muted loop playsinline class="bg-video">
-  <source src="weddings.mp4" type="video/mp4">
+  <source src="mio.mp4" type="video/mp4">
 </video>
 
   <!-- Floating petals container -->
   <div id="petals-container"></div>
 
 <!-- Navigation -->
-<nav class="relative z-10 px-6 md:px-12 lg:px-10 py-6">
 
-  <!-- Navigation Links -->
-  <div class="flex flex-wrap justify-center md:justify-between items-center gap-6 text-sm md:text-base">
-    <a href="#" class="nav-link">Home</a>
-    <a href="#" class="nav-link">Our Story</a>
-    <a href="#" class="nav-link">Wedding</a>
-    <a href="#" class="nav-link">Gallery</a>
-    <a href="#" class="nav-link">Location</a>
-  </div>
-
-</nav>
   
 
   <!-- Hero Section -->
@@ -1376,7 +1723,7 @@
       on
     </p>
     <!-- Date -->
-    <p class="text-sm tracking-[0.3em] uppercase mt-4 date-reveal" style="color: var(--accent);">
+    <p class=" tracking-[0.3em] uppercase mt-4 date-reveal" style="color: var(--accent); font-size: 30px;">
       15 March 2026
     </p>
 
@@ -1386,7 +1733,7 @@
     <!-- Hero -->
  
 
-    <div class="section-divider"></div>
+    <div class="section-divider mt-16"></div>
 
  <!-- Wedding Weekend Section -->
 <div class="frame-wrapper bg-gradient-to-r from-purple-700 via-pink-600 to-red-500 p-1 rounded-3xl shadow-2xl max-w-7xl mx-auto">
@@ -1396,19 +1743,19 @@
         
         <!-- Left: Title and Date -->
         <div class="text-center lg:text-left">
-          <h2 class="font-display text-6xl md:text-5xl font-light tracking-wide text-white mb-6 reveal">
+          <h2 class="font-display text-6xl md:text-5xl font-light tracking-wide text-white mb-6 reveal" data-aos="fade-up">
             The Wedding Weekend
           </h2>
           <div class="deco-line lg:mx-0"></div>
-          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
+          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1 "data-aos="fade-up">
            Sunday 15th March 2026
           </p>
           <br>
-          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
+          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1" data-aos="fade-up">
            Royal Arena Islamabad
           </p>
           <br>
-          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
+          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1" data-aos="fade-up">
            Main GT Rd, Near nust eme college Peshawar Rd, adjacent Daewoo Terminal, ,26 Number  Islamabad
           </p>
                  
@@ -1458,7 +1805,7 @@
          <p class="text-white/90 font-light leading-relaxed text-sm md:text-base reveal reveal-delay-3">
   With joy and gratitude in our hearts, we warmly invite you to celebrate our Waleema. Join us for an evening of togetherness, blessings, laughter, and unforgettable memories as we share this special milestone with our beloved family and friends. Your presence will make our celebration truly complete.
 </p>
-<section class="countdown-section">
+<section class="countdown-section "data-aos="fade-up">
   <h2>Counting down</h2>
   <p class="date">15 March 2026</p>
 
@@ -1520,7 +1867,7 @@ setInterval(() => {
   <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
     <!-- LEFT SIDE -->
-    <div class="text-center lg:text-left">
+    <div class="text-center lg:text-left" data-aos="fade-up">
       <h1 class="md:text-5xl font-light mb-6 reveals" style="color: var(--fg); font-size: 3.5rem;">
         Events
       </h1>
@@ -1536,7 +1883,7 @@ setInterval(() => {
    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
   <!-- Event 1 -->
-  <div class="text-center p-8 rounded-xl backdrop-blur-md bg-white/20 border border-white/30 shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl reveal reveal-delay-1">
+  <div data-aos="fade-up" class="text-center p-8 rounded-xl backdrop-blur-md bg-white/20 border border-white/30 shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl reveal reveal-delay-1">
     <div class="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden flex items-center justify-center ring-4 ring-white/50 animate-bounce-slow" style="background: var(--accent); opacity: 0.9;">
       <img src="iftari_pic.png" class="w-full h-full object-cover">
     </div>
@@ -1548,7 +1895,7 @@ setInterval(() => {
   </div>
 
   <!-- Event 2 -->
-  <div class="text-center p-8 rounded-xl backdrop-blur-md bg-white/20 border border-white/30 shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl reveal reveal-delay-2">
+  <div  data-aos="fade-up" class="text-center p-8 rounded-xl backdrop-blur-md bg-white/20 border border-white/30 shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl reveal reveal-delay-2">
     <div class="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden flex items-center justify-center ring-4 ring-white/50 animate-bounce-slow" style="background: var(--flower-red); opacity: 0.9;">
       <img src="entrence.png" class="w-full h-full object-cover">
     </div>
@@ -1560,7 +1907,7 @@ setInterval(() => {
   </div>
 
   <!-- Event 3 -->
-  <div class="text-center p-8 rounded-xl backdrop-blur-md bg-white/20 border border-white/30 shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl reveal reveal-delay-3">
+  <div  data-aos="fade-up" class="text-center p-8 rounded-xl backdrop-blur-md bg-white/20 border border-white/30 shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl reveal reveal-delay-3">
     <div class="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden flex items-center justify-center ring-4 ring-white/50 animate-bounce-slow" style="background: var(--flower-purple); opacity: 0.9;">
       <img src="dinner.png" class="w-full h-full object-cover">
     </div>
@@ -1573,6 +1920,35 @@ setInterval(() => {
 
 </div>
   </div>
+</section>
+<section class="calendar-section" data-aos="fade-up">
+  
+  <h2 class="calendar-title">Save The Date</h2>
+  <p class="calendar-subtitle">
+    Add our Waleema celebration to your calendar so you don’t miss the special day.
+  </p>
+
+  <div class="calendar-wrapper">
+    
+    <iframe 
+      src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=Asia%2FKarachi"
+      style="border:0"
+      width="100%"
+      height="500"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
+
+  </div>
+  <a href="https://calendar.google.com/calendar/render?action=TEMPLATE
+&text=Albash+%26+Wajeeha+Waleema
+&dates=20260316T181600/20260316T220000
+&details=Waleema+Reception+of+Albash+and+Wajeeha
+&location=Royal+Arena+Islamabad"
+target="_blank" class="calendar-btn" data-aos="fade-up">
+📅 Add to Google Calendar
+</a>
+
 </section>
 
 <!-- Background atmosphere -->
@@ -1593,7 +1969,7 @@ setInterval(() => {
 
 
     <!-- Job listings grid -->
-    <section class="job-grid" aria-label="Job listings">
+    <section class="job-grid" aria-label="Job listings" data-aos="fade-up">
       <!-- Amazon -->
       <article class="job-card">
         <div class="card-header">
@@ -1751,7 +2127,7 @@ setInterval(() => {
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
             </svg>
           </div>
-          <div class="card-title-section">
+          <div class="card-title-section ">
             <div class="company-name">Apple</div>
             <h2 class="job-title">Graphic Designer</h2>
           </div>
@@ -1777,6 +2153,42 @@ setInterval(() => {
     
   </main>
 </main>
+<section class="form-section" data-aos="fade-up">
+
+<div class="form-card">
+
+<h2 class="form-title">Leave Your Blessings 💌</h2>
+<p class="form-sub">Write a message or dua for the couple</p>
+
+<form action="https://api.web3forms.com/submit" method="POST">
+
+<input type="hidden" name="access_key" value="6521941e-11c5-447c-9369-630fca4cbb23">
+
+<div class="input-group">
+<input type="text" name="name" required placeholder=" ">
+<label>Your Name</label>
+</div>
+
+<div class="input-group">
+<input type="email" name="email" required placeholder=" ">
+<label>Email Address</label>
+</div>
+
+<div class="input-group">
+<textarea name="message" required placeholder=" "></textarea>
+<label>Your Message</label>
+</div>
+
+<button type="submit" class="submit-btn">
+Send Blessings ✨
+</button>
+
+</form>
+
+</div>
+
+</section>
+
 <!-- Footer -->
 <footer class="bg-[#f8f4f0] py-8 text-center text-gray-700 space-y-2">
   <!-- Arabic Blessing -->
@@ -1789,7 +2201,13 @@ setInterval(() => {
   <hr class="w-24 mx-auto border-t border-gray-300 mt-4">
   
   <!-- Copyright or names -->
- <p class="text-xs text-gray-500 mt-2">© 2026 Albash & Wajeeha. Wedding invitation website designed and created with ❤️ by Albash.</p>
+ 
+  
+  
+  <p class="text-xs text-gray-500 mt-2">© 2026 Albash & Wajeeha. Wedding invitation website designed and created with ❤️ by Albash.</p>
+
+
+
 </footer>
   <script>
     // Initialize petals container
@@ -1890,6 +2308,13 @@ setInterval(() => {
       });
     });
   </script>
-  
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+AOS.init({
+  duration: 1200,   // animation speed
+  once: true        // animation only once
+});
+</script>
 </body>
 </html>
