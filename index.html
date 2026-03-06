@@ -116,7 +116,69 @@
     0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 150, 0.5), 0 0 40px rgba(255, 100, 200, 0.4); }
     50% { box-shadow: 0 0 40px rgba(255, 0, 150, 0.7), 0 0 60px rgba(255, 100, 200, 0.6); }
   }
+/* Section styling */
+.countdown-section {
+  background-color: #3a3835;
+  text-align: center;
+  border-radius: 20px;
+  margin-top: 10px;
+  color: #ffb84d;
+  padding: 20px 10px;
+  font-family: 'Arial', sans-serif;
+}
 
+/* Title & date */
+.countdown-section h2 {
+  font-size: 18px;
+  color: #fcdece;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.countdown-section .date {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+/* Countdown container */
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Individual countdown box */
+.countdown-box {
+  background: #fff0e5;
+  border: 1px solid #e0cfc1;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-width: 50px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect */
+.countdown-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Numbers */
+.countdown-box p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #6b4c3b;
+  margin: 0;
+}
+
+/* Labels */
+.countdown-box span {
+  display: block;
+  font-size: 10px;
+  color: #6b4c3b;
+  margin-top: 2px;
+}
   .animate-frame-glow {
     animation: frame-glow 3s ease-in-out infinite;
   }
@@ -1113,7 +1175,33 @@
         gap: 0.5rem;
       }
     }
+    .quran-verse {
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+}
 
+.arabic-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #f1ebeb;
+  margin-bottom: 12px;
+}
+
+.translation {
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+
+.reference {
+  font-size: 0.9rem;
+  color: #555;
+}
+   
   </style>
 </head>
 <body>
@@ -1145,6 +1233,17 @@
   <!-- Hero Section -->
   <main class="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-100px)] px-6">
     <!-- Flower Wreath -->
+<div class="quran-verse">
+  <p class="arabic-text">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+  <blockquote class="translation">
+    "And among His signs is that He created for you spouses 
+    from among yourselves<br> so that you may find tranquility in them,
+    and He placed between you affection and mercy."
+  </blockquote>
+  <p class="reference">— Qur’an 30:21</p>
+</div>
+
+
     <div class="wreath-container">
       <!-- Ring -->
       <div class="wreath-ring"></div>
@@ -1317,6 +1416,8 @@
             <button class="mt-4 px-6 py-3 border border-white/30 text-white text-xs tracking-widest uppercase transition-all hover:bg-white/10 hover:border-white/50 reveal reveal-delay-4">
               View location on Map
             </button>
+            <!-- Countdown Section -->
+
           </a>
           
           <!-- Small decorative elements -->
@@ -1357,6 +1458,53 @@
          <p class="text-white/90 font-light leading-relaxed text-sm md:text-base reveal reveal-delay-3">
   With joy and gratitude in our hearts, we warmly invite you to celebrate our Waleema. Join us for an evening of togetherness, blessings, laughter, and unforgettable memories as we share this special milestone with our beloved family and friends. Your presence will make our celebration truly complete.
 </p>
+<section class="countdown-section">
+  <h2>Counting down</h2>
+  <p class="date">15 March 2026</p>
+
+  <div id="countdown" class="countdown-container">
+    <div class="countdown-box">
+      <p id="days">00</p>
+      <span>Days</span>
+    </div>
+    <div class="countdown-box">
+      <p id="hours">00</p>
+      <span>Hrs</span>
+    </div>
+    <div class="countdown-box">
+      <p id="minutes">00</p>
+      <span>Min</span>
+    </div>
+    <div class="countdown-box">
+      <p id="seconds">00</p>
+      <span>Sec</span>
+    </div>
+  </div>
+</section>
+
+<script>
+const weddingDate = new Date("March 15, 2026 18:00:00").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const distance = weddingDate - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("days").innerText = days.toString().padStart(2,'0');
+  document.getElementById("hours").innerText = hours.toString().padStart(2,'0');
+  document.getElementById("minutes").innerText = minutes.toString().padStart(2,'0');
+  document.getElementById("seconds").innerText = seconds.toString().padStart(2,'0');
+
+  if(distance < 0){
+    clearInterval(this);
+    document.getElementById("countdown").innerHTML = "<p class='big-day'>The big day is here! 🎉</p>";
+  }
+}, 1000);
+</script>
           
           <div class="deco-line lg:ml-auto"></div>
         </div>
@@ -1629,7 +1777,20 @@
     
   </main>
 </main>
-
+<!-- Footer -->
+<footer class="bg-[#f8f4f0] py-8 text-center text-gray-700 space-y-2">
+  <!-- Arabic Blessing -->
+  <p class="text-lg font-semibold text-[#6b4c3b]">اللّهُمَّ بارك لهما واجمع بينهما في خير</p>
+  
+  <!-- English Translation -->
+  <p class="text-sm italic text-gray-600">“O Allah! Bless them and unite them in goodness.”</p>
+  
+  <!-- Optional small line or flourish -->
+  <hr class="w-24 mx-auto border-t border-gray-300 mt-4">
+  
+  <!-- Copyright or names -->
+ <p class="text-xs text-gray-500 mt-2">© 2026 Albash & Wajeeha. Wedding invitation website designed and created with ❤️ by Albash.</p>
+</footer>
   <script>
     // Initialize petals container
     const petalsContainer = document.getElementById('petals-container');
