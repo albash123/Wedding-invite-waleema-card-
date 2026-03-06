@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Listings</title>
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-secondary: #12121a;
+      --fg: #f4f4f5;
+      --muted: #71717a;
+      --accent: #ff6b35;
+      --accent-glow: rgba(255, 107, 53, 0.3);
+      --card: rgba(24, 24, 32, 0.8);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --card-hover: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background atmosphere */
+    .bg-atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bg-gradient-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.4;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .blob-1 {
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c61 100%);
+      top: -200px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      bottom: -150px;
+      left: -100px;
+      animation-delay: -7s;
+    }
+
+    .blob-3 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -14s;
+      opacity: 0.2;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.05); }
+      50% { transform: translate(-20px, 20px) scale(0.95); }
+      75% { transform: translate(20px, 30px) scale(1.02); }
+    }
+
+    /* Noise overlay */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Main container */
+    .main-container {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--fg) 0%, var(--muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .header-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      animation: fadeIn 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .filter-tab {
+      padding: 0.625rem 1.25rem;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid var(--card-border);
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .filter-tab:hover {
+      border-color: var(--accent);
+      color: var(--fg);
+    }
+
+    .filter-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    /* Job grid */
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Job card */
+    .job-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: cardEntrance 0.6s ease-out both;
+    }
+
+    .job-card:nth-child(1) { animation-delay: 0.1s; }
+    .job-card:nth-child(2) { animation-delay: 0.2s; }
+    .job-card:nth-child(3) { animation-delay: 0.3s; }
+    .job-card:nth-child(4) { animation-delay: 0.4s; }
+    .job-card:nth-child(5) { animation-delay: 0.5s; }
+    .job-card:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .job-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 107, 53, 0.3);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 60px var(--accent-glow);
+    }
+
+    .job-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .company-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .job-card:hover .company-logo {
+      transform: scale(1.1) rotate(-3deg);
+    }
+
+    .logo-amazon { background: linear-gradient(135deg, #ff9900 0%, #ffb84d 100%); color: #000; }
+    .logo-google { background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%); color: #fff; }
+    .logo-dribble { background: linear-gradient(135deg, #ea4c89 0%, #f06292 100%); color: #fff; }
+    .logo-figma { background: linear-gradient(135deg, #f24e1e 0%, #a259ff 50%, #1abcfe 100%); color: #fff; }
+    .logo-airbnb { background: linear-gradient(135deg, #ff5a5f 0%, #ff8a80 100%); color: #fff; }
+    .logo-apple { background: linear-gradient(135deg, #555 0%, #333 100%); color: #fff; }
+
+    .card-title-section {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .company-name {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .job-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--fg);
+      line-height: 1.3;
+    }
+
+    .job-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .job-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.875rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .type-part-time {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+    }
+
+    .type-full-time {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+
+    .type-contract {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+    }
+
+    .job-type svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .remote-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: rgba(255, 107, 53, 0.1);
+      color: var(--accent);
+    }
+
+    .remote-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .salary {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .salary-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.125rem;
+    }
+
+    .salary-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--fg);
+    }
+
+    .apply-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .apply-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+
+    .apply-btn:hover {
+      color: var(--bg);
+    }
+
+    .apply-btn:hover::before {
+      transform: translateX(0);
+    }
+
+    .apply-btn:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .bg-gradient-blob,
+      .job-card,
+      .header {
+        animation: none;
+      }
+      
+      .job-card {
+        opacity: 1;
+        transform: none;
+      }
+      
+      .job-card:hover {
+        transform: none;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1.5rem 1rem;
+      }
+
+      .header {
+        margin-bottom: 2.5rem;
+      }
+
+      .header-stats {
+        gap: 2rem;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+      }
+
+      .filter-tabs {
+        gap: 0.375rem;
+      }
+
+      .filter-tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.8125rem;
+      }
+
+      .job-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .job-card {
+        padding: 1.25rem;
+      }
+
+      .company-logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        font-size: 1rem;
+      }
+
+      .job-title {
+        font-size: 1.125rem;
+      }
+
+      .card-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+
+      .apply-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .job-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background atmosphere -->
+  <div class="bg-atmosphere">
+    <div class="bg-gradient-blob blob-1"></div>
+    <div class="bg-gradient-blob blob-2"></div>
+    <div class="bg-gradient-blob blob-3"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <main class="main-container">
+    <!-- Header -->
+    <header class="header">
+      <h1>Find Your Dream Job</h1>
+      <p>Discover opportunities from leading companies. Your next career move starts here.</p>
+      
+    </header>
+
+
+    <!-- Job listings grid -->
+    <section class="job-grid" aria-label="Job listings">
+      <!-- Amazon -->
+      <article class="job-card">
+        <div class="card-header">
+          <div class="company-logo logo-amazon" aria-hidden="true">A</div>
+          <div class="card-title-section">
+            <div class="company-name">Amazon</div>
+            <h2 class="job-title">Senior UI/UX Designer</h2>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span class="job-type type-part-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Part-Time
+          </span>
+        </div>
+        <div class="card-footer">
+          <div class="salary">
+            <div class="salary-label">Hourly Rate</div>
+            <div class="salary-value">$120/hr</div>
+          </div>
+          <button class="apply-btn" aria-label="Apply for Senior UI/UX Designer at Amazon">Apply Now</button>
+        </div>
+      </article>
+
+      <!-- Google -->
+      <article class="job-card">
+        <div class="card-header">
+          <div class="company-logo logo-google" aria-hidden="true">G</div>
+          <div class="card-title-section">
+            <div class="company-name">Google</div>
+            <h2 class="job-title">Graphic Designer</h2>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span class="job-type type-part-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Part-Time
+          </span>
+        </div>
+        <div class="card-footer">
+          <div class="salary">
+            <div class="salary-label">Annual Salary</div>
+            <div class="salary-value">$150 - 220k</div>
+          </div>
+          <button class="apply-btn" aria-label="Apply for Graphic Designer at Google">Apply Now</button>
+        </div>
+      </article>
+
+      <!-- Dribble -->
+      <article class="job-card">
+        <div class="card-header">
+          <div class="company-logo logo-dribble" aria-hidden="true">D</div>
+          <div class="card-title-section">
+            <div class="company-name">Dribble</div>
+            <h2 class="job-title">Senior Motion Designer</h2>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span class="job-type type-contract">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14,2 14,8 20,8"/>
+            </svg>
+            Contract
+          </span>
+          <span class="remote-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+            Remote
+          </span>
+        </div>
+        <div class="card-footer">
+          <div class="salary">
+            <div class="salary-label">Hourly Rate</div>
+            <div class="salary-value">$85/hr</div>
+          </div>
+          <button class="apply-btn" aria-label="Apply for Senior Motion Designer at Dribble">Apply Now</button>
+        </div>
+      </article>
+
+      <!-- Figma -->
+      <article class="job-card">
+        <div class="card-header">
+          <div class="company-logo logo-figma" aria-hidden="true">F</div>
+          <div class="card-title-section">
+            <div class="company-name">Figma</div>
+            <h2 class="job-title">UX Designer</h2>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span class="job-type type-full-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+            Full-Time
+          </span>
+        </div>
+        <div class="card-footer">
+          <div class="salary">
+            <div class="salary-label">Annual Salary</div>
+            <div class="salary-value">$200 - 250k</div>
+          </div>
+          <button class="apply-btn" aria-label="Apply for UX Designer at Figma">Apply Now</button>
+        </div>
+      </article>
+
+      <!-- Airbnb -->
+      <article class="job-card">
+        <div class="card-header">
+          <div class="company-logo logo-airbnb" aria-hidden="true">A</div>
+          <div class="card-title-section">
+            <div class="company-name">Airbnb</div>
+            <h2 class="job-title">Junior UI/UX Designer</h2>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span class="job-type type-contract">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14,2 14,8 20,8"/>
+            </svg>
+            Contract
+          </span>
+          <span class="remote-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+            Remote
+          </span>
+        </div>
+        <div class="card-footer">
+          <div class="salary">
+            <div class="salary-label">Hourly Rate</div>
+            <div class="salary-value">$100/hr</div>
+          </div>
+          <button class="apply-btn" aria-label="Apply for Junior UI/UX Designer at Airbnb">Apply Now</button>
+        </div>
+      </article>
+
+      <!-- Apple -->
+      <article class="job-card">
+        <div class="card-header">
+          <div class="company-logo logo-apple" aria-hidden="true">
+            <svg width="20" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+          </div>
+          <div class="card-title-section">
+            <div class="company-name">Apple</div>
+            <h2 class="job-title">Graphic Designer</h2>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span class="job-type type-full-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+            Full-Time
+          </span>
+        </div>
+        <div class="card-footer">
+          <div class="salary">
+            <div class="salary-label">Annual Salary</div>
+            <div class="salary-value">$85 - 120k</div>
+          </div>
+          <button class="apply-btn" aria-label="Apply for Graphic Designer at Apple">Apply Now</button>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
