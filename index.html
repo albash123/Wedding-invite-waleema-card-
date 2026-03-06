@@ -364,6 +364,71 @@
       right: -100px;
       animation-delay: 0s;
     }
+    .logo-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.6s ease;
+}
+
+/* Hover subtle scale */
+.logo-container:hover {
+  transform: scale(1.05);
+}
+
+/* Logo image styling */
+.logo-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.05);
+  transition: all 0.5s ease;
+}
+
+/* Continuous Glow Overlay */
+.logo-container .glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: pulse 2s infinite;
+}
+
+/* Continuous Sparkle effect */
+.logo-container .sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: rgb(238, 127, 127);
+  border-radius: 50%;
+  top: 20%;
+  left: 10%;
+  opacity: 0.8;
+  box-shadow: 0 0 10px white, 0 0 20px #fff;
+  animation: sparkleAnim 3s infinite linear;
+}
+
+/* Pulse animation for continuous glow */
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+/* Sparkle continuous movement */
+@keyframes sparkleAnim {
+  0% { transform: translate(0,0) scale(0.8); opacity: 0.6; }
+  25% { transform: translate(20px,10px) scale(1); opacity: 1; }
+  50% { transform: translate(-15px,20px) scale(0.9); opacity: 0.7; }
+  75% { transform: translate(10px,-10px) scale(1.1); opacity: 1; }
+  100% { transform: translate(0,0) scale(0.8); opacity: 0.6; }
+}
 
     .blob-2 {
       width: 500px;
@@ -384,6 +449,73 @@
       animation-delay: -14s;
       opacity: 0.2;
     }
+    .map-button {
+  position: relative;
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  font-size: 0.875rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1), 0 0 30px rgba(255,255,255,0.05);
+}
+
+/* Hover Effects */
+.map-button:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 40px rgba(255,255,255,0.2);
+}
+
+/* Glow animation */
+.map-button .glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.map-button:hover .glow {
+  opacity: 1;
+  animation: pulse 1.5s infinite;
+}
+
+/* Shine effect */
+.map-button .shine {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+  transform: skewX(-25deg);
+  transition: all 0.5s ease;
+}
+
+.map-button:hover .shine {
+  left: 125%;
+  transition: all 0.75s ease-in-out;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
 
     @keyframes float {
       0%, 100% { transform: translate(0, 0) scale(1); }
@@ -836,6 +968,7 @@
   </style>
 </head>
 <body>
+  
   <!-- Background texture -->
   <!-- Background Video -->
 <video autoplay muted loop playsinline class="bg-video">
@@ -1022,71 +1155,67 @@
 
     <div class="section-divider"></div>
 
-    <!-- Wedding Weekend Section -->
-    <section class="weekend-section py-16 md:py-24 px-6 md:px-12 lg:px-20">
-      <div class="weekend-grid grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
-        
-        <!-- Left: Title and Date -->
-        <div class="text-center lg:text-left">
-          <h2 class="font-display text-6xl md:text-5xl font-light tracking-wide text-white mb-6 reveal">
-            The Wedding Weekend
-          </h2>
-          <div class="deco-line lg:mx-0"></div>
-          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
-           Sunday 15th March 2026
-          </p>
-          <br>
-          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
-         Royal Arena Islamabad
-          </p>
-          <br>
-          <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
-           Main GT Rd, Near nust eme college Peshawar Rd, adjacent Daewoo Terminal, ,26 Number  Islamabad
-          </p>
-
-                 
-     <a href="https://share.google/fMTWh5SNAQz5vcOER" target="_blank">
-  <button class="mt-4 px-6 py-3 border border-white/30 text-white text-xs tracking-widest uppercase transition-all hover:bg-white/10 hover:border-white/50 reveal reveal-delay-4">
-    View location on Map
-  </button>
-</a>
-          
-          <!-- Small decorative elements -->
-          <div class="flex gap-3 justify-center lg:justify-start mt-6 reveal reveal-delay-2">
-            <span class="w-2 h-2 rounded-full bg-white/30"></span>
-            <span class="w-2 h-2 rounded-full bg-white/50"></span>
-            <span class="w-2 h-2 rounded-full bg-white/30"></span>
-          </div>
-        </div>
-
-        <!-- Center: Rings with Stars -->
-        <div class="flex justify-center reveal reveal-delay-2">
-          <div class="rings-container">
-            <!-- Rings -->
-            <div class="ring ring-left"></div>
-            <div class="ring ring-right"></div>
-            
-            <!-- Stars around rings -->
-            
-          </div>
-        </div>
-
-        <!-- Right: Invitation Text -->
-        <div class="text-center lg:text-right space-y-6">
-          <p class="text-white/90 font-light leading-relaxed text-sm md:text-base reveal reveal-delay-3">
-            We are delighted to invite you to the celebration of our marriage. Join us for a weekend filled with love, laughter, and unforgettable moments.
-          </p>
-          
-          <div class="deco-line lg:ml-auto"></div>
-          
-          <p class="text-white/70 font-light text-sm leading-relaxed reveal reveal-delay-4">
-            Three days of festivities await, from the welcoming dinner on Friday evening to our beautiful ceremony and reception on Saturday, concluding with a farewell brunch on Sunday morning.
-          </p>
-          
- 
-        </div>
+ <!-- Wedding Weekend Section -->
+<section class="weekend-section py-16 md:py-24 px-6 md:px-12 lg:px-20">
+  <div class="weekend-grid grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
+    
+    <!-- Left: Title and Date -->
+    <div class="text-center lg:text-left">
+      <h2 class="font-display text-6xl md:text-5xl font-light tracking-wide text-white mb-6 reveal">
+        The Wedding Weekend
+      </h2>
+      <div class="deco-line lg:mx-0"></div>
+      <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
+       Sunday 15th March 2026
+      </p>
+      <br>
+      <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
+       Royal Arena Islamabad
+      </p>
+      <br>
+      <p class="text-white/90 text-sm md:text-base tracking-wider font-light reveal reveal-delay-1">
+       Main GT Rd, Near nust eme college Peshawar Rd, adjacent Daewoo Terminal, ,26 Number  Islamabad
+      </p>
+             
+      <a href="https://share.google/fMTWh5SNAQz5vcOER" target="_blank">
+        <button class="mt-4 px-6 py-3 border border-white/30 text-white text-xs tracking-widest uppercase transition-all hover:bg-white/10 hover:border-white/50 reveal reveal-delay-4">
+          View location on Map
+        </button>
+      </a>
+      
+      <!-- Small decorative elements -->
+      <div class="flex gap-3 justify-center lg:justify-start mt-6 reveal reveal-delay-2">
+        <span class="w-2 h-2 rounded-full bg-white/30"></span>
+        <span class="w-2 h-2 rounded-full bg-white/50"></span>
+        <span class="w-2 h-2 rounded-full bg-white/30"></span>
       </div>
-    </section>
+    </div>
+
+    <!-- Center: Image -->
+    <div class="flex justify-center reveal reveal-delay-2">
+  <div class="logo-container">
+    <img src="ourlogo.png" alt="Wedding Weekend" class="logo-img">
+    <span class="glow"></span>
+    <span class="sparkle"></span>
+     <span class="sparkle"></span>
+      <span class="sparkle"></span> <span class="sparkle"></span>
+  </div>
+</div>
+
+    <!-- Right: Invitation Text -->
+    <div class="text-center lg:text-right space-y-6">
+      <p class="text-white/90 font-light leading-relaxed text-sm md:text-base reveal reveal-delay-3">
+        We are delighted to invite you to the celebration of our marriage. Join us for a weekend filled with love, laughter, and unforgettable moments.
+      </p>
+      
+      <div class="deco-line lg:ml-auto"></div>
+      
+      <p class="text-white/70 font-light text-sm leading-relaxed reveal reveal-delay-4">
+        Three days of festivities await, from the welcoming dinner on Friday evening to our beautiful ceremony and reception on Saturday, concluding with a farewell brunch on Sunday morning.
+      </p>
+    </div>
+  </div>
+</section>
 
     <div class="section-divider"></div>
 
