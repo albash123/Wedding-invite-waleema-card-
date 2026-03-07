@@ -1559,7 +1559,66 @@ color:#444;
   font-size: 0.9rem;
   color: #555;
 }
-   
+   .translationsline{
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-size: 2rem;
+  color: #a69999;
+  text-align: center;
+  margin: 40px auto;
+  padding: 20px 30px;
+  max-width: 600px;
+  line-height: 2;
+  position: relative;
+
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+
+  letter-spacing: 1px;
+  animation: fadeUp 2s ease forwards;
+}
+
+/* decorative lines */
+.translationsline::before,
+.translationsline::after{
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(to right, transparent, #682202, transparent);
+}
+
+.translationsline::before{
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.translationsline::after{
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* animation */
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform: translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+/* glowing effect on hover */
+.translationsline:hover{
+  text-shadow: 0 0 10px #c8a96a,
+               0 0 20px #c8a96a;
+  transform: scale(1.03);
+  transition: all .4s ease;
+}
   </style>
 </head>
 <body>
@@ -1588,6 +1647,10 @@ color:#444;
     and He placed between you affection and mercy."
   </blockquote>
   <p class="reference">— Qur’an 30:21</p>
+    <blockquote class="translationsline">
+     ممتاز نگاہ نخلِ گلستانِ صادق
+
+  </blockquote>
 </div>
 
 
@@ -1959,194 +2022,6 @@ target="_blank" class="calendar-btn" data-aos="fade-up">
 
  
    
-    <!-- <header class="header">
-      <h1>The Groom’s Welcoming Party</h1>
-      <p>On this joyous occasion, Albash is blessed to be surrounded by his  family , who will graciously welcome our beloved guests. Their presence adds warmth and love to our celebration..</p>
-      
-    </header> -->
-
-<!-- 
-    <section class="job-grid" aria-label="Job listings" data-aos="fade-up">
-    
-      <article class="job-card">
-        <div class="card-header">
-          <div class="company-logo logo-amazon" aria-hidden="true">A</div>
-          <div class="card-title-section">
-            <div class="company-name">Amazon</div>
-            <h2 class="job-title">Senior UI/UX Designer</h2>
-          </div>
-        </div>
-        <div class="job-meta">
-          <span class="job-type type-part-time">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 6v6l4 2"/>
-            </svg>
-            Part-Time
-          </span>
-        </div>
-        <div class="card-footer">
-          <div class="salary">
-            <div class="salary-label">Hourly Rate</div>
-            <div class="salary-value">$120/hr</div>
-          </div>
-          <button class="apply-btn" aria-label="Apply for Senior UI/UX Designer at Amazon">Apply Now</button>
-        </div>
-      </article>
-
-
-      <article class="job-card">
-        <div class="card-header">
-          <div class="company-logo logo-google" aria-hidden="true">G</div>
-          <div class="card-title-section">
-            <div class="company-name">Google</div>
-            <h2 class="job-title">Graphic Designer</h2>
-          </div>
-        </div>
-        <div class="job-meta">
-          <span class="job-type type-part-time">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 6v6l4 2"/>
-            </svg>
-            Part-Time
-          </span>
-        </div>
-        <div class="card-footer">
-          <div class="salary">
-            <div class="salary-label">Annual Salary</div>
-            <div class="salary-value">$150 - 220k</div>
-          </div>
-          <button class="apply-btn" aria-label="Apply for Graphic Designer at Google">Apply Now</button>
-        </div>
-      </article>
-
-     
-      <article class="job-card">
-        <div class="card-header">
-          <div class="company-logo logo-dribble" aria-hidden="true">D</div>
-          <div class="card-title-section">
-            <div class="company-name">Dribble</div>
-            <h2 class="job-title">Senior Motion Designer</h2>
-          </div>
-        </div>
-        <div class="job-meta">
-          <span class="job-type type-contract">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14,2 14,8 20,8"/>
-            </svg>
-            Contract
-          </span>
-          <span class="remote-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-              <polyline points="9,22 9,12 15,12 15,22"/>
-            </svg>
-            Remote
-          </span>
-        </div>
-        <div class="card-footer">
-          <div class="salary">
-            <div class="salary-label">Hourly Rate</div>
-            <div class="salary-value">$85/hr</div>
-          </div>
-          <button class="apply-btn" aria-label="Apply for Senior Motion Designer at Dribble">Apply Now</button>
-        </div>
-      </article>
-
-
-      <article class="job-card">
-        <div class="card-header">
-          <div class="company-logo logo-figma" aria-hidden="true">F</div>
-          <div class="card-title-section">
-            <div class="company-name">Figma</div>
-            <h2 class="job-title">UX Designer</h2>
-          </div>
-        </div>
-        <div class="job-meta">
-          <span class="job-type type-full-time">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-            </svg>
-            Full-Time
-          </span>
-        </div>
-        <div class="card-footer">
-          <div class="salary">
-            <div class="salary-label">Annual Salary</div>
-            <div class="salary-value">$200 - 250k</div>
-          </div>
-          <button class="apply-btn" aria-label="Apply for UX Designer at Figma">Apply Now</button>
-        </div>
-      </article>
-
-      <article class="job-card">
-        <div class="card-header">
-          <div class="company-logo logo-airbnb" aria-hidden="true">A</div>
-          <div class="card-title-section">
-            <div class="company-name">Airbnb</div>
-            <h2 class="job-title">Junior UI/UX Designer</h2>
-          </div>
-        </div>
-        <div class="job-meta">
-          <span class="job-type type-contract">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14,2 14,8 20,8"/>
-            </svg>
-            Contract
-          </span>
-          <span class="remote-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-              <polyline points="9,22 9,12 15,12 15,22"/>
-            </svg>
-            Remote
-          </span>
-        </div>
-        <div class="card-footer">
-          <div class="salary">
-            <div class="salary-label">Hourly Rate</div>
-            <div class="salary-value">$100/hr</div>
-          </div>
-          <button class="apply-btn" aria-label="Apply for Junior UI/UX Designer at Airbnb">Apply Now</button>
-        </div>
-      </article>
-
-    
-      <article class="job-card">
-        <div class="card-header">
-          <div class="company-logo logo-apple" aria-hidden="true">
-            <svg width="20" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-            </svg>
-          </div>
-          <div class="card-title-section ">
-            <div class="company-name">Apple</div>
-            <h2 class="job-title">Graphic Designer</h2>
-          </div>
-        </div>
-        <div class="job-meta">
-          <span class="job-type type-full-time">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-            </svg>
-            Full-Time
-          </span>
-        </div>
-        <div class="card-footer">
-          <div class="salary">
-            <div class="salary-label">Annual Salary</div>
-            <div class="salary-value">$85 - 120k</div>
-          </div>
-          <button class="apply-btn" aria-label="Apply for Graphic Designer at Apple">Apply Now</button>
-        </div>
-      </article>
-    </section>
-     -->
   </main>
   
 </main>
